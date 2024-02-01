@@ -4,6 +4,18 @@ import {preview} from "../assets"
 import {getRandomPrompt} from '../utils'
 import { FormField, Loader } from '../components'
 
+//the api can either be accessed online via my render back end
+//or by starting the local host server up
+
+//local host
+// const handleSubmitString = 'http://localhost:8080/api/v1/post';
+// const handleGenerateImage = 'http://localhost:8080/api/v1/dalle';
+
+//remote server
+const handleSubmitString = 'https://dall-e-0slg.onrender.com/api/v1/post'
+const handleGenerateImage = 'https://dall-e-0slg.onrender.com/api/v1/dalle'
+
+
 const CreatePost = () => {
     const navigate = useNavigate();
     const [form, setForm] = useState({
@@ -19,7 +31,7 @@ const CreatePost = () => {
             try{
                 setGeneratingImg(true);
                 const response = await fetch(
-                    'http://localhost:8080/api/v1/dalle', 
+                    handleGenerateImage, 
                     {method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -46,7 +58,7 @@ const CreatePost = () => {
             setLoading(true);
 
             try{
-                const response = await fetch('http://localhost:8080/api/v1/post',
+                const response = await fetch(handleSubmitString,
                 { method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
